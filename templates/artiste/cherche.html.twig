@@ -1,0 +1,15 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    <h2>Résultats de la recherche pour "{{ query }}"</h2>
+
+    <ul>
+        {% for artist in artists %}
+            <li>
+                <a href="{{ path('artist_info', {id: artist.id}) }}">{{ artist.name }}</a>
+            </li>
+        {% endfor %}
+    </ul>
+
+    <a href="{{ path('homepage') }}">Retour à la recherche</a>
+{% endblock %}

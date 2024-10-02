@@ -1,0 +1,50 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}{{ artist.name }}{% endblock %}
+
+{% block body %}
+    <h2>Détails de l'Artiste : {{ artist.name }}</h2>
+
+<div>
+    {% if artist.images is defined and artist.images|length > 0 %}
+        <img src="{{ artist.images[0].url }}" alt="Image de {{ artist.name }}">
+    {% endif %}
+    <p><strong>Popularité :</strong> {{ artist.popularity }}</p>
+    <p><strong>Genre(s) :</strong> {{ artist.genres|join(', ') }}</p>
+    <p><strong>Nombre de followers :</strong> {{ artist.followers.total }}</p>
+</div>
+
+<h3>Top Tracks</h3>
+<ul>
+    {% for track in artist.top_tracks %}
+        <li>
+            <strong>{{ track.name }}</strong> - Popularité : {{ track.popularity }} <br>
+            Durée : {{ track.duration_ms // 60000 }}:{{ (track.duration_ms // 1000) % 60 }}
+            {% if track.preview_url is defined and track.preview_url is not empty %}
+                <audio controls>
+                    <source src="{{ track.preview_url }}" type="audio/mpeg">
+                    Your browser does not support the audio element.
+                </audio>
+            {% else %}
+                <p>No preview available</p>
+            {% endif %}
+        </li>
+    {% endfor %}
+</ul>
+
+<h3>Albums</h3>
+<ul>
+    {% for album in artist.albums %}
+        <li>
+            <strong>{{ album.name }}</strong> - Sorti le : {{ album.release_date }} ({{ album.album_type }})<br>
+            {% if album.images is defined and album.images|length > 0 %}
+                <img src="{{ album.images[0].url }}" alt="Cover of {{ album.name }}" width="100">
+            {% endif %}
+            <a href="{{ album.external_urls.spotify }}" target="_blank">Écouter sur Spotify</a>
+        </li>
+    {% endfor %}
+</ul>
+
+<a href="{{ path('homepage') }}">Retour à la recherche</a>
+
+{% endblock %}

@@ -1,0 +1,13 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Recherche d'Artistes{% endblock %}
+
+{% block body %}
+    <h2>Rechercher un Artiste</h2>
+
+    <form action="{{ path('artist_search_results') }}" method="POST">
+        <label for="artist_name">Nom de l'artiste :</label>
+        <input type="text" id="artist_name" name="artist_name" required>
+        <button type="submit">Rechercher</button>
+    </form>
+{% endblock %}
