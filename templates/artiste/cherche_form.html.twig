@@ -1,13 +1,38 @@
-{% extends 'base.html.twig' %}
+<form id="search-form" method="POST" action="{{ path('artist_search_results') }}">
+    <div class="form-group">
+        <label for="search-input">Rechercher un artiste</label>
+        <input type="text" id="search-input" name="artist_name" class="form-control" placeholder="Entrez un nom d'artiste" autocomplete="off">
+    </div>
+    <div id="suggestions" class="suggestions-container"></div> <!-- Conteneur pour les suggestions -->
+    <button type="submit" class="btn btn-primary">Rechercher</button>
+</form>
 
-{% block title %}Recherche d'Artistes{% endblock %}
+<style>
+    .suggestions-container {
+        border: 1px solid #ccc;
+        max-height: 200px;
+        overflow-y: auto;
+        background-color: white;
+        display: none;
+        position: absolute;
+        width: 100%;
+        z-index: 1000;
+    }
 
-{% block body %}
-    <h2>Rechercher un Artiste</h2>
+    .suggestion-item {
+        padding: 10px;
+        cursor: pointer;
+    }
 
-    <form action="{{ path('artist_search_results') }}" method="POST">
-        <label for="artist_name">Nom de l'artiste :</label>
-        <input type="text" id="artist_name" name="artist_name" required>
-        <button type="submit">Rechercher</button>
-    </form>
-{% endblock %}
+    .suggestion-item:hover {
+        background-color: #f0f0f0;
+    }
+</style>
+
+
+
+{% block javascript %}
+    {# Inclusion de fichiers JavaScript personnalisés #}
+    <script src="{{ asset('asset/js/page.js') }}"></script>
+
+{% endblock %} {# Fin du bloc 'javascript' #}

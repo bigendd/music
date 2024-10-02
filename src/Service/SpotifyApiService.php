@@ -100,7 +100,17 @@ class SpotifyApiService
      */
     public function searchArtists(string $query): array
     {
-        $searchUrl = 'https://api.spotify.com/v1/search?q=' . urlencode($query) . '&type=artist&limit=10';
-        return $this->apiRequest($searchUrl);
+        $response = $this->client->request('GET', 'https://api.spotify.com/v1/search', [
+            'headers' => [
+                'Authorization' => 'Bearer ' . $this->accessToken,
+            ],
+            'query' => [
+                'q' => $query,
+                'type' => 'artist',
+                'limit' => 5, // Limite pour l'autocomplétion
+            ],
+        ]);
+
+        return $response->toArray();
     }
 }
