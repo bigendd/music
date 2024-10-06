@@ -77,23 +77,6 @@ class SpotifyApiService
         return $artistData;
     }
 
-    /**
-     * Méthode générique pour effectuer des requêtes GET à l'API Spotify
-     */
-    private function apiRequest(string $url): array
-    {
-        try {
-            $response = $this->client->request('GET', $url, [
-                'headers' => [
-                    'Authorization' => 'Bearer ' . $this->accessToken,
-                ],
-            ]);
-
-            return $response->toArray();
-        } catch (ClientExceptionInterface $e) {
-            throw new \Exception('API request error: ' . $e->getMessage());
-        }
-    }
 
     /**
      * Méthode pour rechercher des artistes via l'API Spotify
@@ -113,4 +96,30 @@ class SpotifyApiService
 
         return $response->toArray();
     }
+    public function getNewReleases(string $market = 'FR', int $limit = 10): array
+    {
+        $response = $this->client->request('GET', 'https://api.spotify.com/v1/browse/new-releases', [
+            'headers' => [
+                'Authorization' => 'Bearer ' . $this->accessToken,
+            ],
+            'query' => [
+                'country' => $market,
+                'limit' => $limit,
+            ],
+        ]);
+    
+        return $response->toArray();
+    }
+    public function getAlbumInfo(string $albumId): array
+{
+    $response = $this->client->request('GET', "https://api.spotify.com/v1/albums/{$albumId}", [
+        'headers' => [
+            'Authorization' => 'Bearer ' . $this->accessToken,
+        ],
+    ]);
+
+    return $response->toArray();
+}
+
+
 }

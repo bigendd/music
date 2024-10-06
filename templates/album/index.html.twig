@@ -1,0 +1,28 @@
+<h1>{{ album.name }}</h1>
+<img src="{{ album.images[0].url }}" alt="{{ album.name }}" style="width: 300px;">
+<p>Artistes: {{ album.artists|map(artist => artist.name)|join(', ') }}</p>
+<p>Date de sortie: {{ album.release_date }}</p>
+<p>Genres: {{ album.genres|join(', ') }}</p>
+<p>Label: {{ album.label }}</p>
+<p>Nombre de pistes: {{ album.total_tracks }}</p>
+<p>Description: {{ album.description ?? 'Pas de description disponible' }}</p>
+<p>
+    <a href="{{ album.external_urls.spotify }}" target="_blank">Écouter sur Spotify</a>
+</p>
+
+<h2>Extraits</h2>
+<ul>
+    {% for track in album.tracks.items %}
+        <li>
+            <span>{{ track.name }}</span>
+            {% if track.preview_url %}
+                <audio controls>
+                    <source src="{{ track.preview_url }}" type="audio/mpeg">
+                    Votre navigateur ne supporte pas l'élément audio.
+                </audio>
+            {% else %}
+                <span>Aucun extrait disponible</span>
+            {% endif %}
+        </li>
+    {% endfor %}
+</ul>

@@ -21,8 +21,15 @@ class ArtisteController extends AbstractController
     #[Route('/', name: 'homepage')]
     public function homepage(): Response
     {
-        return $this->render('artiste/cherche_form.html.twig');
+        // Récupérer les nouvelles sorties
+        $newReleases = $this->spotifyApiService->getNewReleases();
+    
+        return $this->render('artiste/cherche_form.html.twig', [
+            'newReleases' => $newReleases['albums']['items'] ?? [],
+        ]);
     }
+    
+
 
     #[Route('/artists/search/results', name: 'artist_search_results', methods: ['POST'])]
     public function searchArtists(Request $request): Response
