@@ -1,6 +1,11 @@
 parameters:
     spotify.client_id: '%env(SPOTIFY_CLIENT_ID)%'
     spotify.client_secret: '%env(SPOTIFY_CLIENT_SECRET)%'
+    media_directory: '%kernel.project_dir%/public/uploads'
+    app.logo_path: '/uploads/logo.png'
+    app.favicon_path: '/uploads/favicon.ico'
+
+
 
 services:
     _defaults:

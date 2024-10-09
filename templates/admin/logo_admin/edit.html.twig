@@ -1,0 +1,35 @@
+{# templates/admin/logo_admin/edit.html.twig #}
+
+{% extends 'base.html.twig' %}
+{% block nav %}
+    {{ parent() }}
+{% endblock %}
+{% block body %}
+    <h1>Paramètres logo et favicon</h1>
+
+    {{ form_start(form) }}
+        {{ form_row(form.logo) }}
+        {{ form_row(form.favicon) }}
+        <button type="submit" class="btn btn-primary">Save</button>
+    {{ form_end(form) }}
+
+    {% for flashMessage in app.flashes('success') %}
+        <div class="alert alert-success">
+            {{ flashMessage }}
+        </div>
+    {% endfor %}
+
+    <h2>Logo actuel</h2>
+    {% if newLogoFilename %}
+        <img src="{{ asset('uploads/' ~ newLogoFilename) }}" alt="Logo actuel" style="max-width: 200px; max-height: 200px;">
+    {% else %}
+        <p>Aucun logo disponible.</p>
+    {% endif %}
+
+    <h2>Favicon actuel</h2>
+    {% if newFaviconFilename %}
+        <img src="{{ asset('uploads/' ~ newFaviconFilename) }}" alt="Favicon actuel" style="max-width: 32px; max-height: 32px;">
+    {% else %}
+        <p>Aucun favicon disponible.</p>
+    {% endif %}
+{% endblock %}

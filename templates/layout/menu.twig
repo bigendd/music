@@ -1,0 +1,30 @@
+
+<nav>
+    {# <div class="logo">
+        {% if newLogoFilename %}
+            <img src="{{ asset('uploads/' ~ newLogoFilename) }}" alt="Logo">
+        {% else %}
+            <p>Aucun logo disponible.</p>
+        {% endif %}
+    </div> #}
+
+    <div class="navbar-collapse">
+            {% if is_granted('IS_AUTHENTICATED_FULLY') %}
+                <a href="">Profil</a>
+                <a href="">
+                    Mes Favoris
+                </a>
+                <a href="">Contactez-nous</a>
+
+                {% if is_granted('ROLE_ADMIN') %}
+                    <a href="{{ path('app_admin') }}">Admin</a>
+                {% endif %}
+                <a href="{{ path('app_logout') }}">Déconnexion</a>
+
+            {% else %}
+                <a href="{{ path('app_login') }}">Connexion</a>
+                <a href="{{ path('app_register') }}">Inscription</a>
+                <a href="">Contactez-nous</a>
+            {% endif %}
+        </div>
+</nav>

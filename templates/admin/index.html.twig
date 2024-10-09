@@ -1,0 +1,16 @@
+{% extends 'base.html.twig' %}
+
+{% block nav %}
+    {{ parent() }}
+{% endblock %}
+
+{% block body %}
+    <div class="admin-layout">
+        {% include 'layout/menu_admin.twig' %}
+        <main class="admin-content">
+            {% block admin %}
+                <h1>Bienvenue</h1>
+            {% endblock %}
+        </main>
+    </div>
+{% endblock %}
